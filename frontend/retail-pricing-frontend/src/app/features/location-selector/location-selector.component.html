@@ -1,0 +1,56 @@
+<div class="popup-container">
+  <h2>Select Store Location</h2>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Country</mat-label>
+
+    <mat-select [(ngModel)]="selectedCountry" (selectionChange)="GetCityList()">
+      <mat-option
+        *ngFor="let country of countryList"
+        [value]="country.country_id"
+        (onSelectionChange)="selectedCountryName = country.country_name"
+      >
+        {{ country.country_name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>City</mat-label>
+
+    <mat-select [(ngModel)]="selectedCity" (selectionChange)="GetStoreList()">
+      <mat-option
+        *ngFor="let city of cityList"
+        [value]="city.city_id"
+        (onSelectionChange)="selectedCityName = city.city_name"
+      >
+        {{ city.city_name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Store</mat-label>
+
+    <mat-select [(ngModel)]="selectedStore">
+      <mat-option
+        *ngFor="let store of storeList"
+        [value]="store.store_id"
+        (onSelectionChange)="selectedStoreName = store.store_name"
+      >
+        {{ store.store_name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="apply()"
+    [disabled]="
+      selectedCountry === 0 || selectedCity === 0 || selectedStore === 0
+    "
+  >
+    Apply
+  </button>
+</div>

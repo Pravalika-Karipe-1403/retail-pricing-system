@@ -1,0 +1,548 @@
+[
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Annotated",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "BigInteger",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKeyConstraint",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Index",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "TIMESTAMP",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Mapped",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "declarative_base",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "mapped_column",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "relationship",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Mapped",
+        "importPath": "sqlalchemy.orm.base",
+        "description": "sqlalchemy.orm.base",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm.base",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "asyncio.log",
+        "description": "asyncio.log",
+        "isExtraImport": true,
+        "detail": "asyncio.log",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "masterRepository",
+        "importPath": "repository.masterRepository",
+        "description": "repository.masterRepository",
+        "isExtraImport": true,
+        "detail": "repository.masterRepository",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "db.database",
+        "description": "db.database",
+        "isExtraImport": true,
+        "detail": "db.database",
+        "documentation": {}
+    },
+    {
+        "label": "ssl",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "ssl",
+        "description": "ssl",
+        "detail": "ssl",
+        "documentation": {}
+    },
+    {
+        "label": "sqlalchemy.ext.asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "create_async_engine",
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncSession",
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "async_sessionmaker",
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "get_settings",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "get_settings",
+        "importPath": "config",
+        "description": "config",
+        "isExtraImport": true,
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "lru_cache",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "BaseSettings",
+        "importPath": "pydantic_settings",
+        "description": "pydantic_settings",
+        "isExtraImport": true,
+        "detail": "pydantic_settings",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "starlette.middleware.cors",
+        "description": "starlette.middleware.cors",
+        "isExtraImport": true,
+        "detail": "starlette.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "master_router",
+        "importPath": "controllers.masterController",
+        "description": "controllers.masterController",
+        "isExtraImport": true,
+        "detail": "controllers.masterController",
+        "documentation": {}
+    },
+    {
+        "label": "generate_models_from_db",
+        "importPath": "utils.db_utils",
+        "description": "utils.db_utils",
+        "isExtraImport": true,
+        "detail": "utils.db_utils",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "BadZipFile",
+        "importPath": "zipfile",
+        "description": "zipfile",
+        "isExtraImport": true,
+        "detail": "zipfile",
+        "documentation": {}
+    },
+    {
+        "label": "ZipFile",
+        "importPath": "zipfile",
+        "description": "zipfile",
+        "isExtraImport": true,
+        "detail": "zipfile",
+        "documentation": {}
+    },
+    {
+        "label": "Country",
+        "kind": 6,
+        "importPath": "app.app.db.retail_db_entities",
+        "description": "app.app.db.retail_db_entities",
+        "peekOfCode": "class Country(Base):\n    __tablename__ = 'country'\n    __table_args__ = (\n        Index('idx_country_name', 'country_name'),\n        Index('uq_country_code', 'country_code', unique=True),\n        Index('uq_country_name', 'country_name', unique=True)\n    )\n    country_id = mapped_column(BigInteger, primary_key=True)\n    country_code = mapped_column(String(10), nullable=False)\n    country_name = mapped_column(String(100), nullable=False)",
+        "detail": "app.app.db.retail_db_entities",
+        "documentation": {}
+    },
+    {
+        "label": "City",
+        "kind": 6,
+        "importPath": "app.app.db.retail_db_entities",
+        "description": "app.app.db.retail_db_entities",
+        "peekOfCode": "class City(Base):\n    __tablename__ = 'city'\n    __table_args__ = (\n        ForeignKeyConstraint(['country_id'], ['country.country_id'], name='fk_city_country'),\n        Index('idx_city_country_id', 'country_id'),\n        Index('idx_city_name', 'city_name'),\n        Index('uq_city_country', 'city_name', 'country_id', unique=True)\n    )\n    city_id = mapped_column(BigInteger, primary_key=True)\n    city_name = mapped_column(String(100), nullable=False)",
+        "detail": "app.app.db.retail_db_entities",
+        "documentation": {}
+    },
+    {
+        "label": "Store",
+        "kind": 6,
+        "importPath": "app.app.db.retail_db_entities",
+        "description": "app.app.db.retail_db_entities",
+        "peekOfCode": "class Store(Base):\n    __tablename__ = 'store'\n    __table_args__ = (\n        ForeignKeyConstraint(['city_id'], ['city.city_id'], name='fk_store_city'),\n        Index('idx_store_city_id', 'city_id'),\n        Index('idx_store_code', 'store_code'),\n        Index('idx_store_name', 'store_name'),\n        Index('uq_store_code', 'store_code', unique=True)\n    )\n    store_id = mapped_column(BigInteger, primary_key=True)",
+        "detail": "app.app.db.retail_db_entities",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 5,
+        "importPath": "app.app.db.retail_db_entities",
+        "description": "app.app.db.retail_db_entities",
+        "peekOfCode": "Base = declarative_base()\nclass Country(Base):\n    __tablename__ = 'country'\n    __table_args__ = (\n        Index('idx_country_name', 'country_name'),\n        Index('uq_country_code', 'country_code', unique=True),\n        Index('uq_country_name', 'country_name', unique=True)\n    )\n    country_id = mapped_column(BigInteger, primary_key=True)\n    country_code = mapped_column(String(10), nullable=False)",
+        "detail": "app.app.db.retail_db_entities",
+        "documentation": {}
+    },
+    {
+        "label": "master_router",
+        "kind": 5,
+        "importPath": "app.controllers.masterController",
+        "description": "app.controllers.masterController",
+        "peekOfCode": "master_router = APIRouter(prefix=\"/Master\", tags=[\"Master\"])\n_masterRepository = masterRepository()\n@master_router.get(path='/GetCountryList')\nasync def GetCountryList(session: session) -> str:\n    try:       \n        response = await _masterRepository.GetCountriesList(session)\n        return json.dumps(response) \n    except Exception as ex:\n        logger.error(f\"Error in GetCountryList: {ex}\", exc_info=True)\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=\"Error occurred while fetching Country List\")",
+        "detail": "app.controllers.masterController",
+        "documentation": {}
+    },
+    {
+        "label": "_masterRepository",
+        "kind": 5,
+        "importPath": "app.controllers.masterController",
+        "description": "app.controllers.masterController",
+        "peekOfCode": "_masterRepository = masterRepository()\n@master_router.get(path='/GetCountryList')\nasync def GetCountryList(session: session) -> str:\n    try:       \n        response = await _masterRepository.GetCountriesList(session)\n        return json.dumps(response) \n    except Exception as ex:\n        logger.error(f\"Error in GetCountryList: {ex}\", exc_info=True)\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=\"Error occurred while fetching Country List\")",
+        "detail": "app.controllers.masterController",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "kind": 5,
+        "importPath": "app.db.database",
+        "description": "app.db.database",
+        "peekOfCode": "settings = get_settings()  # This will initiate the environmental variables and return the values.\n#   1)creating engine\nswb_engine = create_async_engine(\n    settings.DATABASE_URL,\n    echo=True,\n    pool_size=10,\n    max_overflow=20,\n    pool_recycle=3600,\n    pool_pre_ping=True\n)",
+        "detail": "app.db.database",
+        "documentation": {}
+    },
+    {
+        "label": "swb_engine",
+        "kind": 5,
+        "importPath": "app.db.database",
+        "description": "app.db.database",
+        "peekOfCode": "swb_engine = create_async_engine(\n    settings.DATABASE_URL,\n    echo=True,\n    pool_size=10,\n    max_overflow=20,\n    pool_recycle=3600,\n    pool_pre_ping=True\n)\n#   2)creating Session factory\nretail_async_session_factory = async_sessionmaker(",
+        "detail": "app.db.database",
+        "documentation": {}
+    },
+    {
+        "label": "retail_async_session_factory",
+        "kind": 5,
+        "importPath": "app.db.database",
+        "description": "app.db.database",
+        "peekOfCode": "retail_async_session_factory = async_sessionmaker(\n    autocommit=False,\n    autoflush=False,\n    bind=swb_engine,\n    class_=AsyncSession,\n    expire_on_commit=False\n)\n# FastAPI dependency\nasync def __get_db_connection():\n    async with retail_async_session_factory() as session:",
+        "detail": "app.db.database",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "kind": 5,
+        "importPath": "app.db.database",
+        "description": "app.db.database",
+        "peekOfCode": "session = Annotated[AsyncSession, Depends(__get_db_connection)]",
+        "detail": "app.db.database",
+        "documentation": {}
+    },
+    {
+        "label": "masterRepository",
+        "kind": 6,
+        "importPath": "app.repository.masterRepository",
+        "description": "app.repository.masterRepository",
+        "peekOfCode": "class masterRepository:\n    def __init__(self) -> None:\n        pass\n    def GetCountriesList(self, session: any):\n        try:\n            pass\n        except Exception as ex:\n            raise",
+        "detail": "app.repository.masterRepository",
+        "documentation": {}
+    },
+    {
+        "label": "masterService",
+        "kind": 6,
+        "importPath": "app.services.masterService",
+        "description": "app.services.masterService",
+        "peekOfCode": "class masterService:\n    def __init__(self) -> None:\n        pass\n    def GetCountriesList(self):\n        try:\n            pass\n        except Exception as ex:\n            raise",
+        "detail": "app.services.masterService",
+        "documentation": {}
+    },
+    {
+        "label": "generate_models_from_db",
+        "kind": 2,
+        "importPath": "app.utils.db_utils",
+        "description": "app.utils.db_utils",
+        "peekOfCode": "def generate_models_from_db():\n    \"\"\"\n    Utility function to generate SQLAlchemy models from an existing database.\n    Run this manually when you need to update models from the database.\n    \"\"\"\n    settings = get_settings()\n    # Create the output directory if it doesn’t exist\n    os.makedirs(\"app/db\", exist_ok=True)\n    # Build the command\n    # 1)To generate all the tables.",
+        "detail": "app.utils.db_utils",
+        "documentation": {}
+    },
+    {
+        "label": "Settings",
+        "kind": 6,
+        "importPath": "app.config",
+        "description": "app.config",
+        "peekOfCode": "class Settings(BaseSettings):\n    # API settings\n    API_DEBUG: bool = True\n    API_PORT: int = 8000\n    PROJECT_NAME: str = \"FastAPI MySQL Integration\"\n    PROJECT_VERSION: str = \"1.0.0\"\n    # Database settings\n    MYSQL_USER: str\n    MYSQL_PASSWORD: str\n    MYSQL_SERVER: str",
+        "detail": "app.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_settings",
+        "kind": 2,
+        "importPath": "app.config",
+        "description": "app.config",
+        "peekOfCode": "def get_settings():\n    return Settings()",
+        "detail": "app.config",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "app = FastAPI(\n    title=\"RETAIL PRICING API\",\n)\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_headers=[\"*\"],\n    allow_methods=[\"*\"],\n    expose_headers=[\"Content-Disposition\"]",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "main_router",
+        "kind": 5,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "main_router = APIRouter(prefix=f\"/api\")\n# including all routes to the common route.\nmain_router.include_router(master_router)\n# Finally adding the main route to the app.\napp.include_router(main_router)\ngenerate_models_from_db()",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "extract_file",
+        "kind": 2,
+        "importPath": "venv.Scripts.vba_extract",
+        "description": "venv.Scripts.vba_extract",
+        "peekOfCode": "def extract_file(xlsm_zip, filename):\n    # Extract a single file from an Excel xlsm macro file.\n    data = xlsm_zip.read(\"xl/\" + filename)\n    # Write the data to a local file.\n    file = open(filename, \"wb\")\n    file.write(data)\n    file.close()\n# The VBA project file and project signature file we want to extract.\nvba_filename = \"vbaProject.bin\"\nvba_signature_filename = \"vbaProjectSignature.bin\"",
+        "detail": "venv.Scripts.vba_extract",
+        "documentation": {}
+    },
+    {
+        "label": "vba_filename",
+        "kind": 5,
+        "importPath": "venv.Scripts.vba_extract",
+        "description": "venv.Scripts.vba_extract",
+        "peekOfCode": "vba_filename = \"vbaProject.bin\"\nvba_signature_filename = \"vbaProjectSignature.bin\"\n# Get the xlsm file name from the commandline.\nif len(sys.argv) > 1:\n    xlsm_file = sys.argv[1]\nelse:\n    print(\n        \"\\nUtility to extract a vbaProject.bin binary from an Excel 2007+ \"\n        \"xlsm macro file for insertion into an XlsxWriter file.\\n\"\n        \"If the macros are digitally signed, extracts also a vbaProjectSignature.bin \"",
+        "detail": "venv.Scripts.vba_extract",
+        "documentation": {}
+    },
+    {
+        "label": "vba_signature_filename",
+        "kind": 5,
+        "importPath": "venv.Scripts.vba_extract",
+        "description": "venv.Scripts.vba_extract",
+        "peekOfCode": "vba_signature_filename = \"vbaProjectSignature.bin\"\n# Get the xlsm file name from the commandline.\nif len(sys.argv) > 1:\n    xlsm_file = sys.argv[1]\nelse:\n    print(\n        \"\\nUtility to extract a vbaProject.bin binary from an Excel 2007+ \"\n        \"xlsm macro file for insertion into an XlsxWriter file.\\n\"\n        \"If the macros are digitally signed, extracts also a vbaProjectSignature.bin \"\n        \"file.\\n\"",
+        "detail": "venv.Scripts.vba_extract",
+        "documentation": {}
+    }
+]

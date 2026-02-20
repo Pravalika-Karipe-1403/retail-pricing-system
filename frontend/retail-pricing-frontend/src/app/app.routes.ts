@@ -1,7 +1,11 @@
 import { Routes } from '@angular/router';
-import { RetailListComponent } from './features/retail-list/retail-list.component';
+import { PricingComponent } from './features/pricing/pricing.component';
+
 
 export const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'retail-list' },
-    { path: 'retail-list', component: RetailListComponent }
+  {
+    path: '',
+
+    component: PricingComponent,
+  },
 ];
