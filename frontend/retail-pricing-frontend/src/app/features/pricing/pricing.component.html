@@ -144,6 +144,7 @@
             <input
               matInput
               [matDatepicker]="picker"
+              [min]="todayDate"
               [(ngModel)]="row.effective_date"
               (dateChange)="stopEdit(row)"
             />
@@ -166,10 +167,9 @@
           <button
             mat-button
             color="primary"
-            *ngIf="editedRows.has(row.pricing_id)"
-            (click)="save(row)"
+            (click)="priceHistoryDetails(row)"
           >
-            Save
+            Price History
           </button>
         </td>
       </ng-container>

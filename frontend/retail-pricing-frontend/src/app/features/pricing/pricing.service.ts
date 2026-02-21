@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { EndPointConfig } from '../../helper/endpoint.config';
 
-
 export interface PricingResponse {
   total: number;
   rows: Pricing[];
@@ -12,19 +11,20 @@ export interface PricingResponse {
 
 export interface Pricing {
   pricing_id: number;
+  product_id: number;
+  store_id: number;
   sku: string;
   product_name: string;
   price: number;
   effective_date: string;
+  is_active: boolean
 }
 
 @Injectable({ providedIn: 'root' })
-
 export class PricingService {
-
   baseURL: string = 'http://127.0.0.1:8000/api/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPricing(page: number, pageSize: number, storeId: number, filter: string) {
     const params = new HttpParams({
@@ -32,13 +32,18 @@ export class PricingService {
         page: page,
         page_size: pageSize,
         store_id: storeId,
-        product: filter || ''
-      }
+        product: filter || '',
+      },
     });
-    return this.http.get<PricingResponse>(this.baseURL + EndPointConfig.GetPricingDetails, { params })
+    return this.http.get<PricingResponse>(
+      this.baseURL + EndPointConfig.GetPricingDetails,
+      { params }
+    );
   }
 
-  updatePrice(row: any) {
-    return of(true);
+  bulkUpdatePricing(request: any[]) {
+    return this.http.put(this.baseURL + EndPointConfig.SaveBulkUpdate,
+      { items: request }
+    );
   }
 }

@@ -6,8 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { Pricing, PricingResponse, PricingService } from './pricing.service';
-import { LocationContextService } from '../../core/location-context.service';
+import { Pricing, PricingService } from './pricing.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationSelectorComponent } from '../location-selector/location-selector.component';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -16,7 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-pricing',
@@ -35,7 +34,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
 
   templateUrl: './pricing.component.html',
@@ -71,11 +70,11 @@ export class PricingComponent implements OnInit {
   editedRows = new Set<number>();
   private filterSubject = new Subject<string>();
   isLoading: boolean = false;
+  todayDate = new Date()
 
   constructor(
     private pricingService: PricingService,
-    private dialog: MatDialog,
-    private locationService: LocationContextService
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -157,28 +156,32 @@ export class PricingComponent implements OnInit {
     };
   }
 
-  saveAll() {
-    this.dataSource.data.forEach((row: Pricing) => {
-      if (this.editedRows.has(row.pricing_id)) {
-        this.save(row);
-      }
-    });
+  saveAll(): void {
+    const updatedRows = this.dataSource.data
+      .filter((row: Pricing) => this.editedRows.has(row.pricing_id))
+      .map((row: Pricing) => ({
+        id: row.pricing_id,
+        product_id: row.product_id,
+        store_id: row.store_id,
+        price: row.price,
+        effective_date: row.effective_date,
+        is_active: row.is_active
+      }));
 
-    this.editedRows.clear();
-  }
+    if (updatedRows.length === 0) {
+      alert('No changes to save');
+      return;
+    }
 
-  // Save updated price
-  save(row: any): void {
-    this.pricingService
-      .updatePrice(row)
-
+    this.pricingService.bulkUpdatePricing(updatedRows)
       .subscribe({
         next: () => {
-          alert('Price updated successfully');
+          alert('All changes saved successfully');
+          this.editedRows.clear();
         },
 
         error: () => {
-          alert('Error updating price');
+          alert('Error saving changes');
         },
       });
   }
@@ -196,5 +199,9 @@ export class PricingComponent implements OnInit {
 
   changeLocation() {
     this.openLocationPopup();
+  }
+
+  priceHistoryDetails(row: Pricing) {
+
   }
 }

@@ -6,7 +6,7 @@ from fastapi.responses import PlainTextResponse
 from repository.masterRepository import masterRepository
 from db.database import session
 from repository.pricingRepository import pricingRepository
-from schema.pricing_schema import PricingListResponse
+from schema.pricing_schema import PricingBulkUpdateRequest, PricingListResponse
 
 _pricingRepository = pricingRepository()
 pricing_router = APIRouter(prefix="/Pricing", tags=["Pricing"])
@@ -27,3 +27,17 @@ async def GetPricingDetails(
         logger.error(f"Error in GetPricingDetails: {ex}", exc_info=True)
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Error occurred while fetching Pricing List")
  
+@pricing_router.put(path="/BulkUpdate")
+async def BulkUpdatePricing(
+    request: PricingBulkUpdateRequest,
+    session: session
+):
+    try:
+        response = await _pricingRepository.BulkUpdatePricing(session, request)
+        return response
+    except Exception as ex:
+        await session.rollback()
+        return {
+            "success": False,
+            "message": str(ex)
+        }

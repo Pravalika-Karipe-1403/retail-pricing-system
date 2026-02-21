@@ -2,5 +2,6 @@ export const EndPointConfig = {
     GetCountry: 'Master/GetCountryList',
     GetCity: 'Master/GetCityList',
     GetStore: 'Master/GetStoreList',
-    GetPricingDetails: 'Pricing/GetPricingDetails'
+    GetPricingDetails: 'Pricing/GetPricingDetails',
+    SaveBulkUpdate: 'Pricing/BulkUpdate'
 }
