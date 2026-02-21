@@ -68,6 +68,9 @@ export class PricingComponent implements OnInit {
     field: null,
   };
 
+  selectedFileName = '';
+  uploading = false;
+
   editedRows = new Set<number>();
   private filterSubject = new Subject<string>();
   isLoading: boolean = false;
@@ -178,6 +181,7 @@ export class PricingComponent implements OnInit {
       next: () => {
         alert('All changes saved successfully');
         this.editedRows.clear();
+        this.loadData();
       },
 
       error: () => {
@@ -186,9 +190,25 @@ export class PricingComponent implements OnInit {
     });
   }
 
-  // Upload button
-  upload(): void {
-    alert(`Upload pricing for Store: ${this.selectedLocation?.store}`);
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
+    this.uploading = true;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('store_id', this.selectedLocation.storeId);
+    this.pricingService.uploadPricingCSV(formData).subscribe({
+      next: (response: any) => {
+        this.uploading = false;
+        alert(response.message);
+        this.loadData();
+      },
+
+      error: () => {
+        this.uploading = false;
+        alert('Upload failed');
+      },
+    });
   }
 
   pageChanged(event: PageEvent) {
@@ -202,11 +222,13 @@ export class PricingComponent implements OnInit {
   }
 
   priceHistoryDetails(row: Pricing) {
-    this.pricingService.GetHistory(row.product_id, row.store_id).subscribe((data) => {
-      this.dialog.open(PricingHistoryDialogComponent, {
-        width: '600px',
-        data: data.rows,
+    this.pricingService
+      .GetHistory(row.product_id, row.store_id)
+      .subscribe((data) => {
+        this.dialog.open(PricingHistoryDialogComponent, {
+          width: '600px',
+          data: data.rows,
+        });
       });
-    });
   }
 }

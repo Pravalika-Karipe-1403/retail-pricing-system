@@ -1,4 +1,6 @@
-from datetime import date, timedelta
+import datetime
+import io
+from fastapi import HTTPException, UploadFile
 from sqlalchemy import select, func, desc, update
 from sqlalchemy.ext.asyncio import AsyncSession
 import uuid
@@ -148,7 +150,7 @@ class pricingRepository:
     
     async def GetPricingHistory(self, session: AsyncSession, product_id: int, store_id: int):
         try:
-            three_months_ago = date.today() - timedelta(days=90)
+            three_months_ago = datetime.date.today() - datetime.timedelta(days=90)
 
             stmt = (
                 select(Pricing)
@@ -172,87 +174,124 @@ class pricingRepository:
         except Exception as ex:
             raise
     
-    # CSV UPLOAD
+    
+    async def UploadPricingCSVDetails(self, session: AsyncSession, store_id: int, file: UploadFile):
+        try:
+            if not file.filename.endswith(".csv"):
+                raise HTTPException(status_code=400, detail="Only CSV allowed")
 
+            content = await file.read()
+            csv_file = io.StringIO(content.decode("utf-8"))
+            reader = list(csv.DictReader(csv_file))
 
-    async def upload_csv(
+            if not reader:
+                raise HTTPException(status_code=400, detail="CSV empty")
 
-        self,
-        db: AsyncSession,
-        store_id: int,
-        file
+            # 1: preload all products
 
-    ):
+            skus = [row["sku"].strip() for row in reader]
+            product_stmt = select(Product).where(Product.sku.in_(skus))
+            product_result = await session.execute(product_stmt)
+            products = product_result.scalars().all()
+            product_map = {
+                p.sku: p.product_id
+                for p in products
+            }
 
+            # 2: preload existing pricing
 
-        batch_id = str(uuid.uuid4())
-
-
-        reader = csv.DictReader(file.file.read().decode().splitlines())
-
-
-        pricing_list = []
-
-
-        for row in reader:
-
-
-            pricing = Pricing(
-
-                product_id=row["product_id"],
-
-                store_id=store_id,
-
-                price=row["price"],
-
-                effective_date=row["effective_date"],
-
-                batch_id=batch_id
-
+            product_ids = list(product_map.values())
+            pricing_stmt = select(Pricing).where(
+                Pricing.store_id == store_id,
+                Pricing.product_id.in_(product_ids)
             )
+            pricing_result = await session.execute(pricing_stmt)
+            pricing_rows = pricing_result.scalars().all()
+
+            # map for quick lookup
+
+            pricing_map = {
+                (p.product_id, p.effective_date): p
+                for p in pricing_rows
+            }
+
+            active_map = {
+                p.product_id: p
+                for p in pricing_rows if p.is_active
+            }
+
+            update_list = []
+            insert_list = []
+
+            # 3: process CSV rows
+
+            for row in reader:
+                sku = row["sku"].strip()
+                price = float(row["price"])
+                effective_date = datetime.datetime.strptime(
+                    row["effective_date"], "%m/%d/%Y"
+                ).date()
+                product_id = product_map.get(sku)
+
+                if not product_id:
+                    continue
+
+                existing = pricing_map.get((product_id, effective_date))
+                
+                # CASE 1: update existing
+
+                if existing:
+                    update_list.append({
+                        "id": existing.pricing_id,
+                        "price": price
+                    })
+
+                # CASE 2: insert new
+
+                else:
+                    active = active_map.get(product_id)
+                    if active:
+                        update_list.append({
+                            "id": active.pricing_id,
+                            "is_active": False
+                        })
+
+                    insert_list.append(
+                        Pricing(
+                            product_id=product_id,
+                            store_id=store_id,
+                            price=price,
+                            effective_date=effective_date,
+                            is_active=True,
+                            created_at=datetime.datetime.utcnow()
+                        )
+                    )
+
+            # 4: execute bulk updates
+
+            for upd in update_list:
+                stmt = (
+                    update(Pricing)
+                    .where(Pricing.pricing_id == upd["id"])
+                    .values(**{k: v for k, v in upd.items() if k != "id"})
+                )
+
+                await session.execute(stmt)
+
+            # 5: bulk insert
+
+            session.add_all(insert_list)
+            await session.commit()
+            
+            return {
+                "message": "Upload successful",
+                "updated": len(update_list),
+                "inserted": len(insert_list)
+            }
+            
+        except Exception as ex:
+            raise
+        
 
 
-            pricing_list.append(pricing)
-
-
-        db.add_all(pricing_list)
-
-
-        await db.commit()
-
-
-        return batch_id
-
-
-    # ROLLBACK
-
-
-    async def rollback(
-
-        self,
-        db: AsyncSession,
-        batch_id: str
-    ):
-
-
-        query = (
-
-            select(Pricing)
-
-            .where(Pricing.batch_id == batch_id)
-
-        )
-
-
-        result = await db.execute(query)
-
-
-        rows = result.scalars().all()
-
-
-        for row in rows:
-
-            row.is_active = False
-
-
-        await db.commit()
+    

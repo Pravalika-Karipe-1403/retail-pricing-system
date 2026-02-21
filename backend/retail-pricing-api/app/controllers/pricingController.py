@@ -1,10 +1,7 @@
 from asyncio.log import logger
-from datetime import date
 import json
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile, status
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import PlainTextResponse
-from repository.masterRepository import masterRepository
 from db.database import session
 from repository.pricingRepository import pricingRepository
 from schema.pricing_schema import PricingBulkUpdateRequest, PricingListResponse
@@ -51,6 +48,22 @@ async def GetPricingHistory(
 ):
     try:
         response = await _pricingRepository.GetPricingHistory(session, product_id, store_id)
+        return response
+    except Exception as ex:
+        await session.rollback()
+        return {
+            "success": False,
+            "message": str(ex)
+        }
+        
+@pricing_router.post(path="/UploadPricingCSV")
+async def UploadPricingCSV(
+    session: session,
+    store_id: int = Form(...),
+    file: UploadFile = File(...)
+):
+    try:
+        response = await _pricingRepository.UploadPricingCSVDetails(session, store_id, file)
         return response
     except Exception as ex:
         await session.rollback()

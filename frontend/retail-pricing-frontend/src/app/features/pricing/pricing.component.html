@@ -40,10 +40,37 @@
       </mat-form-field>
 
       <!-- Upload -->
-      <button mat-raised-button color="primary" class="upload-btn">
-        <mat-icon>upload</mat-icon>
-        Upload CSV
-      </button>
+      <div class="upload-section">
+        <input
+          type="file"
+          #fileInput
+          hidden
+          accept=".csv"
+          (change)="onFileSelected($event)"
+        />
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="upload-btn"
+          (click)="fileInput.click()"
+        >
+          <mat-icon>upload</mat-icon>
+
+          Upload CSV
+        </button>
+
+        <span class="file-name" *ngIf="selectedFileName">
+          {{ selectedFileName }}
+        </span>
+
+        <mat-progress-spinner
+          *ngIf="uploading"
+          diameter="24"
+          mode="indeterminate"
+        >
+        </mat-progress-spinner>
+      </div>
 
       <!-- Save All -->
       <button
@@ -61,7 +88,6 @@
 
   <!-- Table -->
   <mat-card class="table-card table-wrapper">
-
     <div class="loader-overlay" *ngIf="isLoading">
       <mat-spinner diameter="50"></mat-spinner>
 
@@ -164,11 +190,7 @@
         <th mat-header-cell *matHeaderCellDef>Action</th>
 
         <td mat-cell *matCellDef="let row">
-          <button
-            mat-button
-            color="primary"
-            (click)="priceHistoryDetails(row)"
-          >
+          <button mat-button color="primary" (click)="priceHistoryDetails(row)">
             Price History
           </button>
         </td>

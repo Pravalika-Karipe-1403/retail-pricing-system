@@ -4,5 +4,6 @@ export const EndPointConfig = {
     GetStore: 'Master/GetStoreList',
     GetPricingDetails: 'Pricing/GetPricingDetails',
     SaveBulkUpdate: 'Pricing/BulkUpdate',
-    GetPricingHistory: 'Pricing/History'
+    GetPricingHistory: 'Pricing/History',
+    UploadPricingCSV: 'Pricing/UploadPricingCSV'
 }

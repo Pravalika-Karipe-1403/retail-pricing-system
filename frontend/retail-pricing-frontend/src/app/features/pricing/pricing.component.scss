@@ -278,3 +278,15 @@ mat-paginator {
   font-size: 14px;
   color: #555;
 }
+
+.upload-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.file-name {
+  font-size: 13px;
+  color: #555;
+}

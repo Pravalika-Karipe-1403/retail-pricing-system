@@ -58,4 +58,8 @@ export class PricingService {
       { params }
       )
   }
+
+  uploadPricingCSV(file: FormData) {
+    return this.http.post(this.baseURL + EndPointConfig.UploadPricingCSV, file)
+  }
 }
