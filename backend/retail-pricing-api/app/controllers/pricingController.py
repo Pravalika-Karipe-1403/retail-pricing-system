@@ -1,4 +1,5 @@
 from asyncio.log import logger
+from datetime import date
 import json
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.encoders import jsonable_encoder
@@ -34,6 +35,22 @@ async def BulkUpdatePricing(
 ):
     try:
         response = await _pricingRepository.BulkUpdatePricing(session, request)
+        return response
+    except Exception as ex:
+        await session.rollback()
+        return {
+            "success": False,
+            "message": str(ex)
+        }
+        
+@pricing_router.get(path="/History")
+async def GetPricingHistory(
+    product_id: int,
+    store_id: int,
+    session: session
+):
+    try:
+        response = await _pricingRepository.GetPricingHistory(session, product_id, store_id)
         return response
     except Exception as ex:
         await session.rollback()

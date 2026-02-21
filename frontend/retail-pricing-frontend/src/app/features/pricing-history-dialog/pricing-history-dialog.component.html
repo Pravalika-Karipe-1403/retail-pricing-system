@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Price History</h2>
+
+<mat-dialog-content class="dialog-content">
+  <table mat-table [dataSource]="data" class="history-table">
+    <!-- Price -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+
+      <td mat-cell *matCellDef="let row">₹ {{ row.price }}</td>
+    </ng-container>
+
+    <!-- Effective Date -->
+    <ng-container matColumnDef="effective_date">
+      <th mat-header-cell *matHeaderCellDef>Effective Date</th>
+
+      <td mat-cell *matCellDef="let row">
+        {{ row.effective_date | date }}
+      </td>
+    </ng-container>
+
+    <!-- Updated -->
+    <ng-container matColumnDef="updated_at">
+      <th mat-header-cell *matHeaderCellDef>Updated At</th>
+
+      <td mat-cell *matCellDef="let row">
+        {{ row.updated_at | date : "medium" }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell no-data-cell" colspan="100%">
+        No History available
+      </td>
+    </tr>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

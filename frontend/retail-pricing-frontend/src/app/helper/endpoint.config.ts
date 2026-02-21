@@ -3,5 +3,6 @@ export const EndPointConfig = {
     GetCity: 'Master/GetCityList',
     GetStore: 'Master/GetStoreList',
     GetPricingDetails: 'Pricing/GetPricingDetails',
-    SaveBulkUpdate: 'Pricing/BulkUpdate'
+    SaveBulkUpdate: 'Pricing/BulkUpdate',
+    GetPricingHistory: 'Pricing/History'
 }

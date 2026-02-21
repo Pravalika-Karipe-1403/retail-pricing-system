@@ -46,4 +46,16 @@ export class PricingService {
       { items: request }
     );
   }
+
+  GetHistory(productId: number, storeId: number) {
+    const params = new HttpParams({
+      fromObject: {
+        product_id: productId,
+        store_id: storeId
+      },
+    });
+    return this.http.get<PricingResponse>(this.baseURL + EndPointConfig.GetPricingHistory,
+      { params }
+      )
+  }
 }

@@ -1,0 +1,53 @@
+.dialog-content {
+  max-height: 400px;
+
+  overflow: auto;
+
+  padding-top: 10px;
+}
+
+.history-table {
+  width: 100%;
+}
+
+mat-header-row {
+  position: sticky;
+
+  top: 0;
+
+  background: white;
+
+  z-index: 10;
+}
+
+mat-header-cell {
+  font-weight: 600;
+}
+
+mat-row:hover {
+  background: #f5faff;
+}
+
+/* ROW */
+
+mat-row {
+    transition: background 0.2s ease;
+  }
+  
+  mat-row:hover {
+    background: #f8fbff;
+  }
+  
+  /* CELL */
+  
+  mat-cell {
+    font-size: 14px;
+    color: #202124;
+  }
+
+  .no-data-cell {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 16px;
+    color: #777;
+  }

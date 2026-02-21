@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from sqlalchemy import select, func, desc, update
 from sqlalchemy.ext.asyncio import AsyncSession
 import uuid
@@ -141,6 +142,32 @@ class pricingRepository:
             return {
                 "success": True,
                 "message": "Pricing updated successfully"
+            }
+        except Exception as ex:
+            raise
+    
+    async def GetPricingHistory(self, session: AsyncSession, product_id: int, store_id: int):
+        try:
+            three_months_ago = date.today() - timedelta(days=90)
+
+            stmt = (
+                select(Pricing)
+                .where(
+                    Pricing.product_id == product_id,
+                    Pricing.store_id == store_id,
+                    Pricing.is_active == False,
+                    Pricing.effective_date >= three_months_ago
+                )
+                .order_by(Pricing.effective_date.desc())
+            )
+
+            result = await session.execute(stmt)
+
+            records = result.scalars().all()
+
+            return {
+                "total": len(records),
+                "rows": records
             }
         except Exception as ex:
             raise

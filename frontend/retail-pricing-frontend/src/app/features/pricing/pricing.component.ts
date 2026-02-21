@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PricingHistoryDialogComponent } from '../pricing-history-dialog/pricing-history-dialog.component';
 
 @Component({
   selector: 'app-pricing',
@@ -70,7 +71,7 @@ export class PricingComponent implements OnInit {
   editedRows = new Set<number>();
   private filterSubject = new Subject<string>();
   isLoading: boolean = false;
-  todayDate = new Date()
+  todayDate = new Date();
 
   constructor(
     private pricingService: PricingService,
@@ -165,7 +166,7 @@ export class PricingComponent implements OnInit {
         store_id: row.store_id,
         price: row.price,
         effective_date: row.effective_date,
-        is_active: row.is_active
+        is_active: row.is_active,
       }));
 
     if (updatedRows.length === 0) {
@@ -173,17 +174,16 @@ export class PricingComponent implements OnInit {
       return;
     }
 
-    this.pricingService.bulkUpdatePricing(updatedRows)
-      .subscribe({
-        next: () => {
-          alert('All changes saved successfully');
-          this.editedRows.clear();
-        },
+    this.pricingService.bulkUpdatePricing(updatedRows).subscribe({
+      next: () => {
+        alert('All changes saved successfully');
+        this.editedRows.clear();
+      },
 
-        error: () => {
-          alert('Error saving changes');
-        },
-      });
+      error: () => {
+        alert('Error saving changes');
+      },
+    });
   }
 
   // Upload button
@@ -202,6 +202,11 @@ export class PricingComponent implements OnInit {
   }
 
   priceHistoryDetails(row: Pricing) {
-
+    this.pricingService.GetHistory(row.product_id, row.store_id).subscribe((data) => {
+      this.dialog.open(PricingHistoryDialogComponent, {
+        width: '600px',
+        data: data.rows,
+      });
+    });
   }
 }
