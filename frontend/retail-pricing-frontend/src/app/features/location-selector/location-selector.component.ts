@@ -79,7 +79,8 @@ export class LocationSelectorComponent implements OnInit {
     const location = {
       country: this.selectedCountryName,
       city: this.selectedCityName,
-      storeId: this.selectedStoreName,
+      storeId: this.selectedStore,
+      storeName: this.selectedStoreName
     };
 
     // save in context service (optional but good)

@@ -1,53 +1,281 @@
 .page-container {
-  padding: 20px;
-  background: #f5f7fa;
+  padding: 24px;
+  background: #f4f6f8;
 }
 
-.location-card {
-  margin-bottom: 15px;
-  padding: 10px;
-}
+/* ================= LOCATION BAR ================= */
 
-.location-header {
+.location-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
+  background: #ffffff;
+  padding: 14px 22px;
+  border-radius: 10px;
+
+  margin-bottom: 18px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eef0f2;
 }
 
-.location-text {
-  font-size: 18px;
+.location-left {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+.location-label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #5f6368;
+}
+
+.location-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #202124;
+}
+
+/* ================= TOOLBAR ================= */
+
 .toolbar-card {
-  margin-bottom: 15px;
-  padding: 15px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
 
 .toolbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 14px;
+
+  padding: 12px 16px;
 }
+
+/* SEARCH */
 
 .filter-box {
-  width: 350px;
+  width: 360px;
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    background: #fafafa;
+  }
 }
+
+/* BUTTON GROUP ALIGNMENT */
+
+.upload-btn,
+.save-all-btn {
+  min-width: 160px;
+
+  height: 42px;
+
+  font-weight: 600;
+
+  border-radius: 8px;
+
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+
+  transition: all 0.2s ease;
+}
+
+/* Upload button style */
 
 .upload-btn {
-  height: 50px;
-  font-weight: 600;
+  margin-left: auto;
 }
 
-.table-card {
-  padding: 15px;
+/* Save All button style */
+
+.save-all-btn {
+  background: linear-gradient(45deg, #ff4081, #ff6e9f);
+
+  color: white;
 }
+
+.save-all-btn:hover {
+  transform: translateY(-1px);
+
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.upload-btn:hover {
+  transform: translateY(-1px);
+
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* ================= TABLE ================= */
+
+.table-card {
+  padding: 12px;
+
+  border-radius: 10px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* TABLE */
 
 .pricing-table {
   width: 100%;
 }
 
+/* HEADER */
+
+mat-header-cell {
+  font-weight: 600;
+
+  font-size: 14px;
+
+  color: #5f6368;
+
+  background: #fafafa;
+
+  border-bottom: 2px solid #eee;
+}
+
+/* ROW */
+
+mat-row {
+  transition: background 0.2s ease;
+}
+
+mat-row:hover {
+  background: #f8fbff;
+}
+
+/* CELL */
+
+mat-cell {
+  font-size: 14px;
+
+  color: #202124;
+}
+
+/* ================= CLICK EDIT ================= */
+
+.editable-cell {
+  cursor: pointer;
+
+  padding: 8px;
+
+  border-radius: 6px;
+}
+
+.editable-cell:hover {
+  background: #eef6ff;
+}
+
+/* Edited highlight */
+
+.edited {
+  background-color: #fff4e5 !important;
+
+  border-left: 3px solid #ff9800;
+}
+
+/* ================= INPUT FIELDS ================= */
+
 .price-field {
   width: 120px;
+}
+
+.date-field {
+  width: 160px;
+}
+
+/* INPUT DESIGN */
+
+.pricing-table mat-form-field {
+  width: 120px;
+}
+
+/* ================= SAVE BUTTON ================= */
+
+button[mat-icon-button] {
+  background: #e3f2fd;
+
+  border-radius: 6px;
+
+  transition: all 0.2s ease;
+}
+
+button[mat-icon-button]:hover {
+  background: #bbdefb;
+
+  transform: scale(1.05);
+}
+
+/* ================= PAGINATOR ================= */
+
+mat-paginator {
+  margin-top: 14px;
+
+  border-top: 1px solid #eee;
+
+  padding-top: 8px;
+}
+
+.toolbar-card {
+  margin-bottom: 22px;
+}
+
+.location-card {
+  margin-bottom: 16px;
+  padding: 12px;
+}
+
+.location-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.location-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.change-btn {
+  height: 36px;
+}
+
+.no-data-cell {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 16px;
+  color: #777;
+}
+
+.table-wrapper {
+  position: relative;
+  min-height: 300px;
+}
+
+/* OVERLAY */
+
+.loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loader-text {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
 }

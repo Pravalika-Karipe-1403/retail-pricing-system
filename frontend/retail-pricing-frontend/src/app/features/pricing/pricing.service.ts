@@ -1,63 +1,41 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { of } from 'rxjs';
+import { EndPointConfig } from '../../helper/endpoint.config';
+
+
+export interface PricingResponse {
+  total: number;
+  rows: Pricing[];
+}
+
+export interface Pricing {
+  pricing_id: number;
+  sku: string;
+  product_name: string;
+  price: number;
+  effective_date: string;
+}
 
 @Injectable({ providedIn: 'root' })
+
 export class PricingService {
-  data = [
-    {
-      sku: 'SKU001',
 
-      productName: 'iPhone',
+  baseURL: string = 'http://127.0.0.1:8000/api/';
 
-      price: 50000,
-    },
+  constructor(private http: HttpClient) { }
 
-    {
-      sku: 'SKU002',
-
-      productName: 'Samsung',
-
-      price: 40000,
-    },
-
-    {
-      sku: 'SKU003',
-
-      productName: 'Pixel',
-
-      price: 45000,
-    },
-
-    {
-      sku: 'SKU004',
-
-      productName: 'Nokia',
-
-      price: 20000,
-    },
-  ];
-
-  getPricing(page: number, pageSize: number, filter: string) {
-    let filtered = this.data;
-
-    if (filter) {
-      filtered = filtered.filter(
-        (x) =>
-          x.productName.toLowerCase().includes(filter.toLowerCase()) ||
-          x.sku.toLowerCase().includes(filter.toLowerCase())
-      );
-    }
-
-    const start = page * pageSize;
-
-    const end = start + pageSize;
-
-    return of({
-      rows: filtered.slice(start, end),
-
-      totalCount: filtered.length,
+  getPricing(page: number, pageSize: number, storeId: number, filter: string) {
+    const params = new HttpParams({
+      fromObject: {
+        page: page,
+        page_size: pageSize,
+        store_id: storeId,
+        product: filter || ''
+      }
     });
+    return this.http.get<PricingResponse>(this.baseURL + EndPointConfig.GetPricingDetails, { params })
   }
 
   updatePrice(row: any) {

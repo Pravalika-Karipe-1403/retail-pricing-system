@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, APIRouter
 from starlette.middleware.cors import CORSMiddleware
 from controllers.masterController import master_router
-from utils.db_utils import generate_models_from_db
+from controllers.pricingController import pricing_router
 
 app = FastAPI(
     title="RETAIL PRICING API",
@@ -21,6 +21,7 @@ main_router = APIRouter(prefix=f"/api")
 
 # including all routes to the common route.
 main_router.include_router(master_router)
+main_router.include_router(pricing_router)
 
 # Finally adding the main route to the app.
 app.include_router(main_router)

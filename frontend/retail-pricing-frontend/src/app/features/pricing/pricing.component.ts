@@ -1,24 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-
 import { FormsModule } from '@angular/forms';
-
-import { MatTableModule } from '@angular/material/table';
-
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
-
 import { MatButtonModule } from '@angular/material/button';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-
-import { PricingService } from './pricing.service';
+import { Pricing, PricingResponse, PricingService } from './pricing.service';
 import { LocationContextService } from '../../core/location-context.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationSelectorComponent } from '../location-selector/location-selector.component';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 @Component({
   selector: 'app-pricing',
@@ -33,7 +31,11 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule
   ],
 
   templateUrl: './pricing.component.html',
@@ -41,10 +43,16 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 })
 export class PricingComponent implements OnInit {
   // Table columns
-  columns: string[] = ['sku', 'productName', 'price', 'action'];
+  columns: string[] = [
+    'sku',
+    'productName',
+    'price',
+    'effectiveDate',
+    'action',
+  ];
 
   // Table data
-  dataSource: any[] = [];
+  dataSource = new MatTableDataSource<Pricing>([]);
 
   // Backup data for filtering
   allData: any[] = [];
@@ -53,8 +61,16 @@ export class PricingComponent implements OnInit {
   filter: string = '';
   totalRecords = 0;
   pageSize = 50;
-  pageIndex = 0;
+  pageIndex = 1;
   selectedLocation: any;
+  editingCell: any = {
+    rowId: null,
+    field: null,
+  };
+
+  editedRows = new Set<number>();
+  private filterSubject = new Subject<string>();
+  isLoading: boolean = false;
 
   constructor(
     private pricingService: PricingService,
@@ -76,40 +92,79 @@ export class PricingComponent implements OnInit {
     dialogRef.afterClosed().subscribe((location) => {
       if (location) {
         this.selectedLocation = location;
+        this.filterSubject
+          .pipe(
+            debounceTime(400),
+
+            distinctUntilChanged()
+          )
+          .subscribe((value) => {
+            this.loadData();
+          });
 
         this.loadData();
       }
     });
   }
 
-  loadData(): void {
+  loadData() {
+    this.isLoading = true;
     this.pricingService
       .getPricing(
         this.pageIndex,
         this.pageSize,
+        this.selectedLocation.storeId,
         this.filter
       )
 
       .subscribe({
         next: (data) => {
-          this.dataSource = data.rows;
-          this.totalRecords = data.totalCount;
+          this.dataSource.data = data.rows;
+          this.totalRecords = data.total;
+          this.isLoading = false;
         },
 
         error: (err) => {
+          this.isLoading = false;
           console.error('Error loading pricing data', err);
         },
       });
   }
 
   // Free text filter for Product / SKU
-  applyFilter(): void {
-    const searchValue = this.filter.toLowerCase();
-    this.dataSource = this.allData.filter(
-      (row) =>
-        row.productName.toLowerCase().includes(searchValue) ||
-        row.sku.toLowerCase().includes(searchValue)
-    );
+  applyFilter(value: string): void {
+    this.pageIndex = 1;
+    this.filterSubject.next(value);
+  }
+
+  startEdit(rowId: number, field: string) {
+    this.editingCell = {
+      rowId,
+      field,
+    };
+  }
+
+  isEditing(rowId: number, field: string) {
+    return this.editingCell.rowId === rowId && this.editingCell.field === field;
+  }
+
+  stopEdit(row: any) {
+    this.editedRows.add(row.pricing_id);
+
+    this.editingCell = {
+      rowId: null,
+      field: null,
+    };
+  }
+
+  saveAll() {
+    this.dataSource.data.forEach((row: Pricing) => {
+      if (this.editedRows.has(row.pricing_id)) {
+        this.save(row);
+      }
+    });
+
+    this.editedRows.clear();
   }
 
   // Save updated price
@@ -134,8 +189,12 @@ export class PricingComponent implements OnInit {
   }
 
   pageChanged(event: PageEvent) {
-    this.pageIndex = event.pageIndex;
+    this.pageIndex = event.pageIndex + 1;
     this.pageSize = event.pageSize;
     this.loadData();
+  }
+
+  changeLocation() {
+    this.openLocationPopup();
   }
 }

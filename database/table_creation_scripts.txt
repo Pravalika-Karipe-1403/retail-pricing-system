@@ -67,3 +67,47 @@ ON store(store_name);
 -- INDEX for code search
 CREATE INDEX idx_store_code
 ON store(store_code);
+
+#################### PRODUCT ##########################################
+CREATE TABLE retail.product (
+    product_id INT NOT NULL AUTO_INCREMENT,
+    sku VARCHAR(50) NOT NULL UNIQUE,
+    product_name VARCHAR(255) NOT NULL, 
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (product_id)
+);
+
+-- Indexes
+CREATE INDEX idx_product_name ON retail.product(product_name);
+CREATE FULLTEXT INDEX idx_product_name_ft ON retail.product(product_name);
+
+
+#################### PRICING ##########################################
+CREATE TABLE retail.pricing (
+    pricing_id BIGINT NOT NULL AUTO_INCREMENT,
+    product_id INT NOT NULL,       
+    store_id BIGINT NOT NULL,         
+    price DECIMAL(10,2) NOT NULL,
+    effective_date DATE NOT NULL,
+    batch_id VARCHAR(50),
+    created_by VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by VARCHAR(50),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (pricing_id),
+    CONSTRAINT fk_pricing_product FOREIGN KEY (product_id) REFERENCES retail.product(product_id) ON DELETE CASCADE,
+    CONSTRAINT fk_pricing_store FOREIGN KEY (store_id) REFERENCES retail.store(store_id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_pricing_product_effective ON retail.pricing(product_id, store_id, effective_date);
+CREATE INDEX idx_pricing_batch ON retail.pricing(batch_id);
+CREATE INDEX idx_pricing_latest ON retail.pricing(store_id, product_id, effective_date DESC);
+
+
+ALTER TABLE retail.pricing
+ADD COLUMN is_active BOOLEAN NOT NULL DEFAULT TRUE
+AFTER effective_date;
+
+CREATE INDEX idx_pricing_active_latest
+ON retail.pricing (store_id, product_id, is_active, effective_date DESC);

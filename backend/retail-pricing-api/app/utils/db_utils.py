@@ -17,7 +17,7 @@ def generate_models_from_db():
     # Build the command
     # 1)To generate all the tables.
     cmd = (
-        f"python -m sqlacodegen mysql+pymysql://{settings.MYSQL_USER}:{settings.MYSQL_PASSWORD}@{settings.MYSQL_SERVER}:{settings.MYSQL_PORT}/{settings.MYSQL_SCHEMA} --outfile app/db/retail_db_entities.py"
+        f"python -m sqlacodegen mysql+pymysql://{settings.MYSQL_USER}:{settings.MYSQL_PASSWORD}@{settings.MYSQL_SERVER}:{settings.MYSQL_PORT}/{settings.MYSQL_SCHEMA} --outfile db/retail_db_entities.py"
     )
 
     # Execute the command

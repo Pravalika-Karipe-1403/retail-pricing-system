@@ -5,7 +5,8 @@ import { EndPointConfig } from '../helper/endpoint.config';
 export interface LocationContext {
   country: string;
   city: string;
-  storeId: string;
+  storeId: number;
+  storeName: string;
 }
 
 @Injectable({

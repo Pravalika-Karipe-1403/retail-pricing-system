@@ -7,33 +7,33 @@
 
         <span>
           <strong>Location:</strong>
-
-          {{ selectedLocation.country }}
-
-          -
-
-          {{ selectedLocation.city }}
-
-          -
-
-          {{ selectedLocation.storeId }}
+          {{ selectedLocation.country }} - {{ selectedLocation.city }} -
+          {{ selectedLocation.storeName }}
         </span>
       </div>
+
+      <button
+        mat-stroked-button
+        color="primary"
+        class="change-btn"
+        (click)="changeLocation()"
+      >
+        Change Store
+      </button>
     </div>
   </mat-card>
 
-  <!-- Toolbar Card -->
+  <!-- Toolbar -->
   <mat-card class="toolbar-card">
     <div class="toolbar">
       <!-- Filter -->
       <mat-form-field appearance="outline" class="filter-box">
-        <mat-label>Search Product / SKU</mat-label>
+        <mat-label>Search Product</mat-label>
 
         <input
           matInput
           [(ngModel)]="filter"
-          (input)="applyFilter()"
-          placeholder="Type to search"
+          (ngModelChange)="applyFilter($event)"
         />
 
         <mat-icon matSuffix>search</mat-icon>
@@ -42,14 +42,32 @@
       <!-- Upload -->
       <button mat-raised-button color="primary" class="upload-btn">
         <mat-icon>upload</mat-icon>
-
         Upload CSV
+      </button>
+
+      <!-- Save All -->
+      <button
+        mat-raised-button
+        color="accent"
+        class="save-all-btn"
+        *ngIf="editedRows.size > 0"
+        (click)="saveAll()"
+      >
+        <mat-icon>save</mat-icon>
+        Save All Changes
       </button>
     </div>
   </mat-card>
 
-  <!-- Table Card -->
-  <mat-card class="table-card">
+  <!-- Table -->
+  <mat-card class="table-card table-wrapper">
+
+    <div class="loader-overlay" *ngIf="isLoading">
+      <mat-spinner diameter="50"></mat-spinner>
+
+      <div class="loader-text">Loading pricing data...</div>
+    </div>
+
     <table mat-table [dataSource]="dataSource" class="pricing-table">
       <!-- SKU -->
       <ng-container matColumnDef="sku">
@@ -65,27 +83,92 @@
         <th mat-header-cell *matHeaderCellDef>Product</th>
 
         <td mat-cell *matCellDef="let row">
-          {{ row.productName }}
+          {{ row.product_name }}
         </td>
       </ng-container>
 
-      <!-- Price -->
+      <!-- PRICE CLICK TO EDIT -->
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef>Price</th>
 
-        <td mat-cell *matCellDef="let row">
-          <mat-form-field appearance="outline" class="price-field">
-            <input matInput [(ngModel)]="row.price" />
+        <td
+          mat-cell
+          *matCellDef="let row"
+          [class.edited]="editedRows.has(row.pricing_id)"
+        >
+          <!-- display mode -->
+          <span
+            *ngIf="!isEditing(row.pricing_id, 'price')"
+            (click)="startEdit(row.pricing_id, 'price')"
+            class="editable-cell"
+          >
+            {{ row.price }}
+          </span>
+
+          <!-- edit mode -->
+          <mat-form-field
+            *ngIf="isEditing(row.pricing_id, 'price')"
+            appearance="outline"
+          >
+            <input
+              matInput
+              [(ngModel)]="row.price"
+              (blur)="stopEdit(row)"
+              type="number"
+            />
           </mat-form-field>
         </td>
       </ng-container>
 
-      <!-- Action -->
+      <!-- EFFECTIVE DATE CLICK EDIT -->
+      <ng-container matColumnDef="effectiveDate">
+        <th mat-header-cell *matHeaderCellDef>Effective Date</th>
+
+        <td
+          mat-cell
+          *matCellDef="let row"
+          [class.edited]="editedRows.has(row.pricing_id)"
+        >
+          <span
+            *ngIf="!isEditing(row.pricing_id, 'date')"
+            (click)="startEdit(row.pricing_id, 'date')"
+            class="editable-cell"
+          >
+            {{ row.effective_date | date }}
+          </span>
+
+          <mat-form-field
+            *ngIf="isEditing(row.pricing_id, 'date')"
+            appearance="outline"
+          >
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [(ngModel)]="row.effective_date"
+              (dateChange)="stopEdit(row)"
+            />
+
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <!-- ACTION -->
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
 
         <td mat-cell *matCellDef="let row">
-          <button mat-raised-button color="accent" (click)="save(row)">
+          <button
+            mat-button
+            color="primary"
+            *ngIf="editedRows.has(row.pricing_id)"
+            (click)="save(row)"
+          >
             Save
           </button>
         </td>
@@ -94,7 +177,16 @@
       <tr mat-header-row *matHeaderRowDef="columns"></tr>
 
       <tr mat-row *matRowDef="let row; columns: columns"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-data-cell" colspan="100%">
+          No pricing data available for selected store
+        </td>
+      </tr>
     </table>
+
+    <!-- Pagination -->
+
     <mat-paginator
       [length]="totalRecords"
       [pageSize]="pageSize"
