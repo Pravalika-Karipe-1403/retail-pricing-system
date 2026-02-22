@@ -11,7 +11,7 @@ Non-Functional Requirements
 
 # Tech Stack:
 
-Angular 16
+Angular 17
 FastAPI
 MySQL
 
@@ -20,26 +20,30 @@ MySQL
 CSV Upload
 Search with filters
 Pagination
-Edit price
+Edit price/effective\_date
 Audit history
 
 # Setup Instructions:
 
 # Frontend:
 
-cd retail-pricing-system\frontend\retail-pricing-frontend
+cd retail-pricing-system\\frontend\\retail-pricing-frontend
 npm install
 npm run start
 
 # Backend:
 
-cd backend
+cd retail-pricing-system\\frontend\\retail-pricing-api
 pip install -r requirements.txt
 uvicorn main:app --reload
 
+Further detailed instructions are mentioned in 'retail-pricing-system\\backend\\retail-pricing-api\\app' Readme file
+
 # Database:
 
-Run schema.sql
+Run retail-pricing-system\\database\\table\_creation\_scripts in SQL Workbench
 
 # Author:
+
 Pravalika Karipe
+
