@@ -115,7 +115,16 @@
 
       <!-- PRICE CLICK TO EDIT -->
       <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <th mat-header-cell *matHeaderCellDef>
+          Price
+          <mat-icon
+            class="info-icon"
+            matTooltip="Editable column, click on value to edit"
+            matTooltipPosition="above"
+          >
+            info_outline
+          </mat-icon>
+        </th>
 
         <td
           mat-cell
@@ -148,7 +157,16 @@
 
       <!-- EFFECTIVE DATE CLICK EDIT -->
       <ng-container matColumnDef="effectiveDate">
-        <th mat-header-cell *matHeaderCellDef>Effective Date</th>
+        <th mat-header-cell *matHeaderCellDef>
+          Effective Date
+          <mat-icon
+            class="info-icon"
+            matTooltip="Editable column, click on value to edit"
+            matTooltipPosition="above"
+          >
+            info_outline
+          </mat-icon>
+        </th>
 
         <td
           mat-cell

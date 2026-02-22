@@ -17,6 +17,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PricingHistoryDialogComponent } from '../pricing-history-dialog/pricing-history-dialog.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @Component({
   selector: 'app-pricing',
@@ -36,6 +38,7 @@ import { PricingHistoryDialogComponent } from '../pricing-history-dialog/pricing
     MatNativeDateModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
+    MatTooltipModule
   ],
 
   templateUrl: './pricing.component.html',
