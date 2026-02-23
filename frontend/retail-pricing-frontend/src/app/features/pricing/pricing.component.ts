@@ -234,4 +234,12 @@ export class PricingComponent implements OnInit {
         });
       });
   }
+
+  resetFile(event: any) {
+    event.target.value = null;
+  }
+
+  trackByFn(index: number, row: Pricing) {
+    return row.product_id;
+  }
 }

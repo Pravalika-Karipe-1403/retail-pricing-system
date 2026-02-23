@@ -46,6 +46,7 @@
           #fileInput
           hidden
           accept=".csv"
+          (click)="resetFile($event)"
           (change)="onFileSelected($event)"
         />
 
@@ -94,7 +95,7 @@
       <div class="loader-text">Loading pricing data...</div>
     </div>
 
-    <table mat-table [dataSource]="dataSource" class="pricing-table">
+    <table mat-table [dataSource]="dataSource" [trackBy]="trackByFn" class="pricing-table">
       <!-- SKU -->
       <ng-container matColumnDef="sku">
         <th mat-header-cell *matHeaderCellDef>SKU</th>
